@@ -3,16 +3,14 @@ import json
 
 app = Flask(__name__)
 
-client = boto3.client()
-
-@app.route("/", methods=['POST'])
-def hello():
-    client.put(json.loads(request.data))
-    print('mensaje del cliente : {}'.format(client.get()))
-    return Response(json.dumps(s3))
+@app.route("/<algunpath>", methods=['POST'])
+def hello(algunpath):
+    data = request.get_data()
+    print('mensaje del cliente : {}'.format(data))
+    return Response(algunpath)
 
 @app.route("/", methods=['GET'])
 def hello_get():
-    return client.get()
+    return "asd"
 
 app.run(host = '0.0.0.0', port = 8080)
