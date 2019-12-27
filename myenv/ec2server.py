@@ -3,8 +3,8 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/<algunpath>", methods=['POST'])
-def hello(algunpath):
+@app.route("/<bucket>/<algunpath>", methods=['POST'])
+def hello(bucket, algunpath):
     data = request.get_data()
     print('mensaje del cliente : {}'.format(data))
     return Response(algunpath)
