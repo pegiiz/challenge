@@ -1,0 +1,1 @@
+https://challengemeli.s3.amazonaws.com/asdf.txt?AWSAccessKeyId=AKIARFVKXHU6SVAQXE75&Signature=H95fcecfwpMZKdubvgAPwPb0VR0%3D&Expires=1577753597

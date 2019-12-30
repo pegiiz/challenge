@@ -1,24 +1,35 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response,jsonify
+import os
 import boto3
 import json
 import botocore
+from werkzeug import secure_filename
+from botocore.exceptions import ClientError
 app = Flask(__name__)
 s3 = boto3.client('s3')
-@app.route("/<bucket>/<object>", methods=['POST'])
-def hello(bucket, object):
-    data = request.get_data()
-    s3 = boto3.resource('s3')
-    try:
-        s3.Bucket(bucket).download_file(object, str(data))
-    except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
-            print("The object does not exist.")
+
+
+@app.route("/dwlec2/<bucket>/<key>", methods=['GET'])
+def hello(bucket, key):
+    url = s3.generate_presigned_url(
+    ClientMethod='get_object',
+    Params={
+        'Bucket': bucket,
+        'Key': key
+        }
+)
     
-    print('mensaje del cliente : {}'.format(data))
-    return format(data)
+    return (url)
 
-@app.route("/<bucket>/<algunpath>", methods=['GET'])
-def hello_get(bucket, algunpath):
-    return 'msj recibido'
 
+@app.route("/upldec2/<bucket>", methods=['POST'])
+def upload(bucket):
+    file = request.files['file']
+    filename = secure_filename(file.filename)
+    s3 = boto3.client('s3')
+    try:
+        s3.upload_fileobj(file, bucket, filename)
+        return ("archivo subido")
+    except botocore.exceptions.ClientError as e:
+        return("El bucket no existe")
 app.run(host = '0.0.0.0', port = 8080)
