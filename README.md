@@ -7,7 +7,7 @@ http://servidorec2/upldec2/<TU_BUCKET> ----> para subir un archivo:
 curl -F 'file=@/RUTA/DEL/ARCHIVO' http://servidorec2/upldec2/<TU_BUCKET>
 
 
-curl http://servidorec2/dwlec2/<TU_BUCKET>/<TU_KEY> ----> para descargar un archivo, el servidor devolvera una presigned url, para descargar dicho archivo usando curl de nuevo o desde el navegador
+curl http://servidorec2/dwlec2/<TU_BUCKET>/<TU_KEY> ----> para descargar un archivo, el servidor devolvera una presigned url, para descargar dicho archivo usando curl de nuevo o desde el navegador,
 en los endpoints se deben especificar la funcion a llamar seguida del bucket, y para descargar, especificar la key 
 
 
