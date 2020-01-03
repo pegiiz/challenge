@@ -18,7 +18,7 @@ def hello(bucket, key):
         'Key': key
         }
 )
-    
+
     return (url)
 
 
@@ -32,4 +32,16 @@ def upload(bucket):
         return ("archivo subido")
     except botocore.exceptions.ClientError as e:
         return("El bucket no existe")
+
+
+@app.route("/listfiles/<bucket>", methods=['GET'])
+def listfiles(bucket):
+    s3 = boto3.client('s3')
+    s3.list_objects_v2(Bucket=bucket)
+    keys = []
+    resp = s3.list_objects_v2(Bucket=bucket)
+    for obj in resp['Contents']:
+        keys.append(obj['Key'])
+    return jsonify(keys)
+
 app.run(host = '0.0.0.0', port = 8080)
