@@ -1,5 +1,4 @@
 # challenge
 ec2server.py es el script del servidor hosteado en aws
-acepta requests post desde el cliente con un path de la pinta : "IP/bucketname/filename", "downloadname". para descargar archivos de un bucket al servidor.
-el archivo tiene que estar en S3
+funciona como un proxy hacia S3, acepta curls para subir archivos y descargar con presigned urls
 
